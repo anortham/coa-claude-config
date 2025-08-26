@@ -1,0 +1,31 @@
+# Claude Code user-specific files
+.credentials.json
+statusline.json
+cclsp.json
+
+# Logs and temporary files
+*.log
+*.tmp
+*.cache
+
+# PowerShell execution policy files
+*.ps1xml
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS-specific files
+Thumbs.db
+.DS_Store
+Desktop.ini
+
+# Backup directories
+.backup.*
+*.backup.*
+
+# Test files
+test-*
+debug-*
