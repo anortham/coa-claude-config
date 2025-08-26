@@ -123,11 +123,7 @@ try {
             Write-Host "  ✅ statusline.json" -ForegroundColor Green
         }
         
-        # Restore other user-specific files
-        if (Test-Path "$backupDir\cclsp.json") {
-            Copy-Item "$backupDir\cclsp.json" "$claudeDir\cclsp.json" -Force
-            Write-Host "  ✅ cclsp.json" -ForegroundColor Green
-        }
+        # Note: cclsp.json restoration removed - no longer used
     }
     
     Write-Host ""
