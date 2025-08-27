@@ -1,5 +1,5 @@
 ---
-allowed-tools: ["Task", "mcp__goldfish__checkpoint", "mcp__goldfish__remember", "mcp__goldfish__recall", "mcp__goldfish__update_todo", "mcp__codenav__*", "mcp__codesearch__*"]
+allowed-tools: ["Task", "mcp__goldfish__checkpoint", "mcp__goldfish__recall", "mcp__goldfish__view_todos", "mcp__goldfish__update_todo", "mcp__codenav__*", "mcp__codesearch__*"]
 description: "Run individual TDD phase: test|implement|refactor|review - for advanced users"
 ---
 

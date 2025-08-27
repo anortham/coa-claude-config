@@ -1,5 +1,5 @@
 ---
-allowed-tools: ["Task", "mcp__goldfish__create_todo_list", "mcp__goldfish__remember", "mcp__codenav__*", "mcp__codesearch__*"]
+allowed-tools: ["Task", "mcp__goldfish__create_todo_list", "mcp__goldfish__view_todos", "mcp__goldfish__recall", "mcp__codenav__*", "mcp__codesearch__*"]
 description: "Comprehensive codebase audit to find technical debt, security issues, and hidden problems"
 ---
 

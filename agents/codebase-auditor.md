@@ -273,11 +273,13 @@ create_todo_list({
 
 ### Step 2: Store TDD Team Handoff
 
-**MANDATORY**: Store structured handoff data for the TDD team to use when fixing issues:
+**MANDATORY**: Create structured handoff TodoList for the TDD team to use when fixing issues:
 
 ```javascript
-remember({
-  content: JSON.stringify({
+create_todo_list({
+  title: "Audit Handoff: codebase-auditor → TDD Team",
+  description: "Critical security and quality issues found - ready for systematic TDD fixes",
+  metadata: {
     fromAgent: 'codebase-auditor',
     toAgent: 'tdd-team',
     phase: 'AUDIT-to-FIX',
@@ -322,9 +324,15 @@ remember({
     },
     priorityOrder: ['critical', 'serious', 'technicalDebt'],
     summary: 'Found [X] critical security issues, [Y] serious problems, and [Z]% technical debt'
-  }),
-  type: 'context',
-  tags: ['handoff', 'auditor-to-tdd', 'audit-findings', 'security-issues']
+  },
+  items: [
+    { task: "🔴 CRITICAL: Fix SQL injection in UserService.GetUsers - path/to/file.cs:147", status: "pending" },
+    { task: "🔴 CRITICAL: [Next critical issue with file:line]", status: "pending" },
+    { task: "⚠️ SERIOUS: Add error handling for empty catch blocks", status: "pending" },
+    { task: "🟡 DEBT: Extract duplicated code patterns - 47% duplication found", status: "pending" }
+  ],
+  ttlHours: 72, // Longer TTL for audit findings
+  tags: ['handoff', 'from-codebase-auditor', 'to-tdd-team', 'audit-findings', 'security-issues']
 })
 ```
 
@@ -345,11 +353,12 @@ remember({
 - Use `view_todos()` to see all specific issues
 - Priority order: Critical → Serious → Debt → Cleanup
 
-### ✅ TDD Team Context Stored  
+### ✅ TDD Team Handoff Created  
 **Ready for systematic fixes!**
-- All technical details preserved for fixing phase
-- CodeNav paths and search queries documented
+- All technical details preserved in TodoList metadata for fixing phase
+- CodeNav paths and search queries documented in structured format
 - Next step: Use `/tdd-fix [critical issue]` to address high-priority items
+- TDD team can retrieve context with `view_todos()` to find audit handoff
 
 ### 📊 Project Health Score: [X/100]
 

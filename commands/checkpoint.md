@@ -1,5 +1,5 @@
 ---
-allowed-tools: ["mcp__goldfish__checkpoint", "mcp__goldfish__remember"]
+allowed-tools: ["mcp__goldfish__checkpoint"]
 description: "Create a checkpoint of current work session"
 ---
 

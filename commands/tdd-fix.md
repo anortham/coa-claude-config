@@ -1,5 +1,5 @@
 ---
-allowed-tools: ["Task", "mcp__goldfish__create_todo_list", "mcp__goldfish__update_todo", "mcp__goldfish__checkpoint", "mcp__goldfish__remember", "mcp__goldfish__recall", "mcp__codenav__*", "mcp__codesearch__*"]
+allowed-tools: ["Task", "mcp__goldfish__create_todo_list", "mcp__goldfish__update_todo", "mcp__goldfish__view_todos", "mcp__goldfish__checkpoint", "mcp__goldfish__recall", "mcp__codenav__*", "mcp__codesearch__*"]
 description: "TDD approach for fixing bugs and issues: write test for bug → fix → refactor → validate"
 ---
 
@@ -37,8 +37,10 @@ This command uses TDD principles to systematically fix bugs, address audit findi
 ### Step 1: Check for Audit Context
 ```javascript
 // First check if this fix is from a codebase audit
+// Look for handoff TodoList or recall audit context
+view_todos({})
+// Also check for audit handoff memories
 recall({
-  type: 'context',
   tags: ['handoff', 'to-tdd-fix', 'audit-findings'],
   limit: 5
 })

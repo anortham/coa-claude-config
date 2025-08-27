@@ -29,4 +29,6 @@ Desktop.ini
 # Test files
 test-*
 debug-*
+
 .codenav
+.claude
