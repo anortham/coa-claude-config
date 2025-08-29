@@ -5,6 +5,10 @@ description: "Complete TDD cycle for new features: design tests → implement �
 
 Complete Test-Driven Development cycle for new functionality.
 
+**CRITICAL: 100% COMPLETION REQUIRED**
+This workflow costs 200k+ tokens - agents MUST complete ALL items in TodoLists.
+NO partial completion allowed - one cycle = 100% done.
+
 $ARGUMENTS
 
 ## TDD New Feature Development
@@ -46,14 +50,17 @@ create_todo_list({
 Task({
   subagent_type: "test-designer",
   description: "Design comprehensive test suite",
-  prompt: `Design a comprehensive test suite for new feature: $ARGUMENTS
+  prompt: `Design test suite for ALL requested items: $ARGUMENTS
 
 CRITICAL REQUIREMENTS:
+- **CHECK EXISTING FIRST**: Use view_todos() to check for existing handoffs
+- **COMPLETE ALL ITEMS**: If audit found 10 issues, write tests for ALL 10
 - Use CodeNav MCP to understand existing types and interfaces
 - Find similar implementations in codebase for patterns  
 - Write tests that fail for the RIGHT reasons (not compilation errors)
-- Cover all scenarios: happy paths, edge cases, error conditions
+- Cover scenarios for ALL REQUESTED ITEMS: happy paths, edge cases, error conditions
 - Use exact type signatures from CodeNav - no guessing!
+- **NO PARTIAL COMPLETION**: 8/10 tests written = FAILURE
 
 WORKFLOW:
 1. Use CodeNav to explore related code and understand domain
@@ -75,19 +82,20 @@ Task({
   prompt: `Make failing tests pass with MINIMAL implementation: $ARGUMENTS
 
 CRITICAL REQUIREMENTS:
-- First retrieve handoff from test-designer
+- **GET COMPLETE HANDOFF**: Use view_todos() and recall() to get ALL test requirements
+- **MAKE ALL TESTS PASS**: If 10 tests failing, make ALL 10 pass - no exceptions
 - Use CodeNav aggressively for exact type information  
 - Write SIMPLEST code that makes tests green
-- Focus on one failing test at a time
+- Work through EVERY failing test systematically
 - Apply YAGNI principle - You Aren't Gonna Need It
 - Never modify tests to make them pass
 
 WORKFLOW:
-1. Get handoff context from previous phase
+1. **Get handoff from test-designer** using goldfish recall
 2. Run tests to confirm current failures
 3. Use CodeNav for precise type requirements
 4. Implement one test at a time with minimal code
-5. Store handoff data for refactoring phase
+5. **Create handoff for refactoring-expert** with implementation context
 6. **Mark GREEN phase as completed:** update_todo() with status: "done"
 
 Remember: Perfect code comes later. Focus on GREEN tests!`
@@ -102,19 +110,20 @@ Task({
   prompt: `Improve code quality while maintaining all passing tests: $ARGUMENTS
 
 CRITICAL REQUIREMENTS:
-- Retrieve handoff from test-implementer
+- **GET COMPLETE HANDOFF**: Use view_todos() and recall() for ALL improvement areas
+- **REFACTOR ALL ISSUES**: If 8 code smells identified, fix ALL 8
 - ALL tests must pass before starting refactoring
 - Use CodeNav's refactoring tools when available
 - Make incremental changes, testing after each one
-- Apply SOLID principles and design patterns
+- Apply SOLID principles ONLY when they solve the specific problem
 - Never break existing tests
 
 WORKFLOW:  
-1. Get handoff context from implementation phase
+1. **Get handoff from test-implementer** using goldfish recall
 2. Use CodeNav to analyze dependencies and references
 3. Apply automated refactorings where possible
 4. Make small improvements, testing continuously
-5. Store handoff data for review phase
+5. **Create handoff for test-reviewer** with refactoring context
 6. **Mark REFACTOR phase as completed:** update_todo() with status: "done"
 
 Remember: Internal quality without changing external behavior!`
@@ -129,8 +138,9 @@ Task({
   prompt: `Comprehensive review for new feature: $ARGUMENTS
 
 CRITICAL REQUIREMENTS:
-- Retrieve handoff from refactoring-expert
-- **PHASE 1: CLEANUP** - You are THE cleanup specialist:
+- **GET COMPLETE HANDOFF**: Use view_todos() and recall() for ALL review areas
+- **REVIEW ALL AREAS**: If 12 components changed, review ALL 12 thoroughly
+- **PHASE 1: CLEANUP** - Only for current changes:
   * Fix any test infrastructure issues (missing matchers, broken imports)
   * Run build and fix ALL warnings/errors introduced
   * Run linting and fix ALL issues introduced  
@@ -144,7 +154,7 @@ CRITICAL REQUIREMENTS:
   * Verify TDD practices were followed
 
 WORKFLOW:
-1. Get handoff context from refactoring phase
+1. **Get handoff from refactoring-expert** using goldfish recall
 2. **CLEANUP FIRST**: Fix infrastructure, build warnings, linting issues
 3. Use CodeNav to map all code paths and interfaces
 4. Analyze test coverage comprehensively
@@ -156,31 +166,34 @@ Remember: Good tests enable confident future changes!`
 })
 ```
 
+### Step 6: 📖 DOCUMENTATION Phase - Final Validation
 ```
 Task({
   subagent_type: "doc-validator", 
-  description: "Validate documentation accuracy",
-  prompt: `Validate documentation matches implementation: $ARGUMENTS
+  description: "Final documentation validation and cleanup",
+  prompt: `FINAL STEP: Validate documentation for: $ARGUMENTS
 
 CRITICAL REQUIREMENTS:
+- **GET COMPLETE HANDOFF**: Use view_todos() and recall() for ALL documentation areas
+- **VALIDATE ALL DOCS**: If 15 areas affected, validate ALL 15 thoroughly
 - Use CodeNav as source of truth for all validations
-- Check every documented method, parameter, and behavior
-- Test all code examples to ensure they work
-- Update any outdated documentation
-- Never trust docs over actual code
+- Check documentation for ALL changes made in TDD cycle
+- Test ALL relevant code examples to ensure they work
+- Update ALL outdated documentation related to the changes
+- **MARK ALL HANDOFFS COMPLETE** - you are the final step
 
 WORKFLOW:
-1. Identify all documentation related to new feature
-2. Use CodeNav to verify every claim in docs
-3. Test all code examples for accuracy
-4. Fix discrepancies (update docs, not code)
-5. Ensure examples work with current implementation
+1. **Get handoff from test-reviewer** using goldfish recall to understand scope of changes
+2. Use CodeNav to verify documentation matches implementation
+3. Test code examples related to the changes
+4. Fix any discrepancies (update docs, not code)
+5. **Mark all handoffs complete** - workflow closed
 
-Remember: Stale docs are worse than no docs!`
+Remember: You are the final quality gate - clean up after yourself!`
 })
 ```
 
-### Step 6: Create Final Checkpoint
+### Step 7: Create Final Checkpoint
 ```
 checkpoint({
   description: "TDD New Feature Complete: $ARGUMENTS",

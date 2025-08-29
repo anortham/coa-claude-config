@@ -9,7 +9,7 @@ $ARGUMENTS
 
 ## Codebase Health Assessment
 
-This command unleashes the codebase-auditor to perform a ruthless investigation of your code quality, finding issues that need systematic fixes.
+This command uses the codebase-auditor to investigate code quality within the requested scope, finding issues that need systematic fixes.
 
 Perfect for:
 - Pre-release health checks
@@ -28,11 +28,11 @@ Task({
   prompt: `Perform comprehensive audit of codebase: $ARGUMENTS
 
 AUDIT MISSION:
-- Find EVERY problem, lie, and shortcut in the code
-- Use CodeNav and CodeSearch extensively for systematic investigation
-- Create user-visible TODO list of all issues found
-- Store detailed handoff data for TDD team to fix issues
-- Report brutal truth about actual code quality
+- Find problems within the requested audit scope
+- Use CodeNav and CodeSearch for systematic investigation
+- Create user-visible TODO list of significant issues found
+- Create goldfish handoff with structured details for TDD team to fix issues
+- Report code quality issues relevant to the audit scope
 
 SYSTEMATIC INVESTIGATION PROCESS:
 
@@ -63,8 +63,8 @@ SYSTEMATIC INVESTIGATION PROCESS:
 - Check for superficial testing
 
 **MANDATORY DELIVERABLES:**
-1. User-visible TODO list with all critical/serious issues
-2. Structured handoff data for TDD team using tags ['handoff', 'auditor-to-tdd', 'audit-findings']
+1. User-visible TODO list with critical/serious issues found
+2. **Create goldfish handoff** with structured data for TDD team
 3. Project health score out of 100
 4. Clear priority order for fixing issues
 
@@ -95,16 +95,17 @@ checkpoint({
 ## After Audit Completion:
 
 ### Next Steps:
-1. **Review TODO List**: Use `view_todos()` to see all discovered issues
-2. **Start Fixing Critical Issues**: Use `/tdd-fix [critical issue]` to systematically address problems
+1. **Review TODO List**: Check the created TODO list to see discovered issues
+2. **Start Fixing Critical Issues**: Use `/tdd-fix [critical issue]` to systematically address problems  
 3. **Track Progress**: Monitor issue resolution over time
 4. **Schedule Regular Audits**: Prevent technical debt accumulation
 
 ### Integration with TDD Workflow:
-- **Audit findings** automatically available to `/tdd-fix` command
-- **Structured handoff** includes CodeNav analysis and search patterns
+- **Audit findings** available in goldfish handoff for `/tdd-fix` command
+- **Structured handoff** includes CodeNav analysis and search patterns stored in metadata
 - **Priority order** guides which issues to fix first
-- **Evidence trail** provides exact locations and patterns
+- **Evidence trail** provides exact locations and patterns in todo items
+- **doc-validator** runs after fixes to ensure documentation updated
 
 ### Success Criteria:
 - ✅ All technical debt and issues exposed

@@ -5,6 +5,10 @@ description: "Run individual TDD phase: test|implement|refactor|review - for adv
 
 Execute a specific TDD phase individually.
 
+**CRITICAL: 100% COMPLETION REQUIRED**
+This workflow costs 200k+ tokens - agents MUST complete ALL items in TodoLists.
+NO partial completion allowed - one phase = 100% of items completed.
+
 Usage: `/tdd-phase [test|implement|refactor|review|validate] [description]`
 
 $ARGUMENTS
@@ -68,7 +72,7 @@ Task({
   prompt: `Write minimal code to make tests pass: [description from $ARGUMENTS]
 
 CRITICAL REQUIREMENTS:
-- Retrieve handoff from test-designer if available
+- **GET COMPLETE HANDOFF**: Use view_todos() and recall() for ALL context
 - Use CodeNav aggressively for exact type information
 - Write SIMPLEST code that makes tests green
 - Apply YAGNI principle - You Aren't Gonna Need It
@@ -76,11 +80,11 @@ CRITICAL REQUIREMENTS:
 - Never modify tests to make them pass
 
 WORKFLOW:
-1. Check for handoff context from test phase
+1. **GET COMPLETE HANDOFF**: Use view_todos() and recall() for ALL test context
 2. Run tests to confirm current failures  
 3. Use CodeNav for precise type requirements
 4. Implement one test at a time with minimal code
-5. Store handoff for refactoring phase
+5. **Create handoff for next phase** using goldfish todo lists
 
 Remember: Perfect code comes later - focus on GREEN tests!`
 })
@@ -94,7 +98,7 @@ Task({
   prompt: `Refactor code for quality while maintaining green tests: [description from $ARGUMENTS]
 
 CRITICAL REQUIREMENTS:
-- Retrieve handoff from test-implementer if available
+- **GET COMPLETE HANDOFF**: Use view_todos() and recall() for ALL implementation context
 - ALL tests must pass before starting
 - Use CodeNav's refactoring tools when available
 - Make incremental changes, testing after each one
@@ -102,11 +106,11 @@ CRITICAL REQUIREMENTS:
 - Never break existing tests
 
 WORKFLOW:
-1. Check for handoff context from implementation phase
+1. **GET COMPLETE HANDOFF**: Use view_todos() and recall() for ALL implementation context
 2. Use CodeNav to analyze dependencies and references
 3. Apply automated refactorings where possible  
 4. Make small improvements, testing continuously
-5. Store handoff for review phase
+5. **Create handoff for next phase** using goldfish todo lists
 
 Remember: Internal quality without changing external behavior!`
 })
@@ -120,8 +124,8 @@ Task({
   prompt: `Comprehensive quality review: [description from $ARGUMENTS]
 
 CRITICAL REQUIREMENTS:
-- Retrieve handoff from refactoring-expert if available
-- **PHASE 1: CLEANUP** - You are THE cleanup specialist:
+- **GET COMPLETE HANDOFF**: Use view_todos() and recall() for ALL refactoring context
+- **PHASE 1: CLEANUP** - Only for current changes:
   * Fix any test infrastructure issues (missing matchers, broken imports)
   * Run build and fix ALL warnings/errors introduced
   * Run linting and fix ALL issues introduced  
@@ -135,7 +139,7 @@ CRITICAL REQUIREMENTS:
   * Verify TDD practices were followed
 
 WORKFLOW:
-1. Check for handoff context from refactoring phase
+1. **GET COMPLETE HANDOFF**: Use view_todos() and recall() for ALL refactoring context
 2. **CLEANUP FIRST**: Fix infrastructure, build warnings, linting issues
 3. Use CodeNav to map all code paths and interfaces  
 4. Analyze test coverage comprehensively

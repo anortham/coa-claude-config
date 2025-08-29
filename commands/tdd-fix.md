@@ -5,6 +5,10 @@ description: "TDD approach for fixing bugs and issues: write test for bug → fi
 
 Apply Test-Driven Development to fix bugs, issues, and problems.
 
+**CRITICAL: 100% COMPLETION REQUIRED**
+This workflow costs 200k+ tokens - agents MUST complete ALL items in TodoLists.
+NO partial completion allowed - one cycle = 100% of issues fixed.
+
 $ARGUMENTS
 
 ## TDD Bug Fix & Issue Resolution
@@ -34,16 +38,15 @@ This command uses TDD principles to systematically fix bugs, address audit findi
 
 ## Execution Steps:
 
-### Step 1: Check for Audit Context
+### Step 1: Check for Context
 ```javascript
-// First check if this fix is from a codebase audit
-// Look for handoff TodoList or recall audit context
-view_todos({})
-// Also check for audit handoff memories
-recall({
-  tags: ['handoff', 'to-tdd-fix', 'audit-findings'],
-  limit: 5
-})
+// Check if this fix has context from codebase audit
+const handoffs = view_todos({});
+recall({ 
+  tags: ['handoff', 'to-tdd-fix', 'audit-phase'],
+  since: '24h'
+});
+// If no audit handoff found, proceed with user's description of the issue
 ```
 
 ### Step 2: Initialize Fix Session  
@@ -67,7 +70,7 @@ Task({
   prompt: `Write failing test that reproduces the issue: $ARGUMENTS
 
 CRITICAL REQUIREMENTS FOR BUG REPRODUCTION:
-- Check for audit handoff data first - use recall() with tags ['handoff', 'to-tdd-fix'] to get context
+- **GET COMPLETE CONTEXT**: Use view_todos() and recall() for ALL audit findings or issues
 - Use CodeNav to understand current implementation and locate issue
 - Write test that FAILS in same way the bug manifests
 - Test should demonstrate expected vs actual behavior
@@ -224,26 +227,28 @@ Remember: Issues often come in clusters. Find and prevent related problems!`
 })
 ```
 
+### Step 6: 📖 DOCUMENTATION Phase - Final Validation
 ```
 Task({
   subagent_type: "doc-validator",
-  description: "Update docs affected by fix", 
-  prompt: `Update documentation related to the fix: $ARGUMENTS
+  description: "Final validation and cleanup", 
+  prompt: `FINAL STEP: Validate documentation for fix: $ARGUMENTS
 
 CRITICAL REQUIREMENTS:
+- **Get handoff context** from previous TDD phases using goldfish recall
 - Use CodeNav to verify documented behavior matches fixed implementation
-- Update any documentation that was incorrect due to the bug
+- Update any documentation affected by the bug fix
 - Document the fix if it changes public behavior or APIs
-- Update examples that may have been demonstrating the bug
+- **Mark all handoffs complete** when done - you are the final step
 
 WORKFLOW:
-1. Identify documentation related to fixed functionality
+1. **Get handoff context** from previous phases to understand the scope of the fix
 2. Use CodeNav to verify current behavior matches docs
-3. Update incorrect documentation that described buggy behavior  
+3. Update documentation that was affected by the bug
 4. Add security notes if fix addressed vulnerability
-5. Test all code examples to ensure they work correctly
+5. **Mark handoffs complete** - workflow closed
 
-Remember: Sometimes bugs exist because docs described wrong behavior!`
+Remember: You are the final step - clean up after yourself!`
 })
 ```
 
