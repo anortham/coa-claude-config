@@ -26,9 +26,5 @@ Desktop.ini
 .backup.*
 *.backup.*
 
-# Test files
-test-*
-debug-*
-
 .codenav
 .claude
