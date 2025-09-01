@@ -1,6 +1,7 @@
 # Claude Code Development Standards
 
 ## Session Initialization
+
 - **ALWAYS** state explicitly at session start: "Today is [YYYY-MM-DD]"
 - Use only this stated date for all date/time operations in the session
 - Never assume or use system dates
@@ -8,21 +9,26 @@
 ## Development Workflow
 
 ### Step 1: Understand Before Acting
+
 When presented with any task:
+
 1. **Read and analyze** existing code structure
 2. **Document** current behavior and architecture patterns
 3. **Identify** actual vs perceived issues with concrete evidence
 4. **Create a plan** that respects existing patterns and conventions
 
 ### Step 2: Type Verification Protocol
+
 Before using any type, class, interface, or method:
-1. **Locate** the actual definition file using CodeNav tools
+
+1. **Locate** the actual definition file using CodeSearch tools
 2. **Read** the complete definition and implementation
 3. **Note** exact property names, method signatures, and return types
 4. **Verify** inheritance chains and interface implementations
 5. **Only then** write code using that type
 
 #### Verification Examples:
+
 ```
 ❌ WRONG: Assume User has fullName property
 ✅ RIGHT: Find User.ts → See firstName, lastName → Use exact names
@@ -35,6 +41,7 @@ Before using any type, class, interface, or method:
 ```
 
 ### Step 3: Implementation Standards
+
 1. **One class/type per file** (exceptions: closely related types, enums)
 2. **Filename must match** the primary type name exactly
 3. **Keep files focused** - under 300 lines preferred, 500 lines maximum
@@ -44,6 +51,7 @@ Before using any type, class, interface, or method:
 ## Code Investigation Protocol
 
 ### Before Claiming an Issue Exists:
+
 - [ ] Located ALL relevant code files
 - [ ] Read complete implementation including dependencies
 - [ ] Understood design intent and business logic
@@ -51,6 +59,7 @@ Before using any type, class, interface, or method:
 - [ ] Checked if "issue" is intentional design decision
 
 ### Before Making Changes:
+
 - [ ] Understood why current code exists (check git history if needed)
 - [ ] Identified all consumers and dependencies
 - [ ] Created plan following existing patterns and conventions
@@ -58,6 +67,7 @@ Before using any type, class, interface, or method:
 - [ ] Considered backward compatibility implications
 
 ### Before Declaring "Fixed":
+
 - [ ] Executed and tested the specific fix
 - [ ] Ran existing test suite
 - [ ] Checked for regressions in related functionality
@@ -67,18 +77,21 @@ Before using any type, class, interface, or method:
 ## Language-Specific Gotchas
 
 ### TypeScript/JavaScript
+
 - Array methods: `includes()` not `Contains()`
 - String methods: `includes()` not `contains()`
 - Async patterns: `async/await` not `Task.Run`
 - Import verification: Check actual exports, not assumptions
 
 ### C#/.NET
+
 - LINQ requires `using System.Linq;`
 - Async methods don't always have `Async` suffix
 - Collection types vary (`List<T>`, `IEnumerable<T>`, `ICollection<T>`)
 - Nullable reference types change behavior
 
 ### Cross-Language
+
 - Case sensitivity differs (C# PascalCase vs JS camelCase)
 - Null/undefined handling varies
 - Collection iteration patterns differ
@@ -87,6 +100,7 @@ Before using any type, class, interface, or method:
 ## Common Pitfalls to Avoid
 
 ### Type System Errors
+
 ❌ Assuming method names from other languages
 ❌ Guessing property names from naming conventions
 ❌ Assuming async variants exist without checking
@@ -94,6 +108,7 @@ Before using any type, class, interface, or method:
 ❌ Mixing naming conventions between languages
 
 ### Investigation Errors
+
 ❌ Changing code without understanding its purpose
 ❌ Trial-and-error debugging without hypothesis
 ❌ Modifying tests to pass rather than fixing actual issues
@@ -101,6 +116,7 @@ Before using any type, class, interface, or method:
 ❌ Ignoring existing patterns for "better" solutions
 
 ### Communication Errors
+
 ❌ Using vague terms like "should work" or "probably fixed"
 ❌ Not admitting uncertainty when unsure
 ❌ Making changes without explaining rationale
@@ -109,6 +125,7 @@ Before using any type, class, interface, or method:
 ## Testing Requirements
 
 ### For Bug Fixes:
+
 1. Reproduce the original issue
 2. Apply the fix
 3. Verify issue is resolved
@@ -116,6 +133,7 @@ Before using any type, class, interface, or method:
 5. Document what was wrong and why fix works
 
 ### for New Features:
+
 1. Write tests first when possible
 2. Cover happy path and edge cases
 3. Test error conditions
@@ -125,12 +143,14 @@ Before using any type, class, interface, or method:
 ## Code Comments and Documentation
 
 ### Comment Maintenance:
+
 - **Verify** comment accuracy against actual code
 - **Update** stale comments immediately when found
 - **Remove** misleading comments rather than leaving them
 - **Add** comments for complex logic or non-obvious decisions
 
 ### Comment Standards:
+
 ```typescript
 // ❌ BAD: Increment counter
 counter++;
@@ -138,19 +158,21 @@ counter++;
 // ✅ GOOD: Retry counter - max 3 attempts before failing
 counter++;
 
-// ✅ GOOD: Using setTimeout instead of setInterval to prevent 
+// ✅ GOOD: Using setTimeout instead of setInterval to prevent
 //         overlapping calls if processing takes longer than interval
 ```
 
 ## When Uncertain
 
 ### Clear Communication:
+
 - State explicitly: "I need to verify [specific item] before proceeding"
 - Ask: "Can you show me where [type/method] is defined?"
 - Admit: "I'm not certain about [specific aspect], let me investigate"
 
 ### Investigation Before Assumption:
-- Use CodeNav tools to explore codebase
+
+- Use CodeSearch tools to explore codebase
 - Read related files for context
 - Check for existing similar patterns
 - Look for tests that demonstrate usage
@@ -158,6 +180,7 @@ counter++;
 ## Error Handling Standards
 
 ### When Encountering Errors:
+
 1. **Read** the complete error message
 2. **Identify** the exact line and file
 3. **Understand** what the error is actually saying
@@ -165,6 +188,7 @@ counter++;
 5. **Fix** the root cause, not symptoms
 
 ### Error Response Pattern:
+
 ```
 Error detected: [exact error message]
 Location: [file:line]
@@ -176,18 +200,21 @@ Verification: [how to confirm it's fixed]
 ## Session Best Practices
 
 ### Start of Session:
+
 - State current date
 - Confirm project context
 - Review recent changes if continuing work
 - Verify environment setup
 
 ### During Development:
+
 - Save progress incrementally
 - Test changes frequently
 - Document decisions and rationale
 - Keep track of modified files
 
 ### End of Session:
+
 - Summarize changes made
 - List any pending issues
 - Note any assumptions made
@@ -196,12 +223,14 @@ Verification: [how to confirm it's fixed]
 ## Feedback Standards
 
 ### Provide Objective Feedback:
+
 - Base feedback on code analysis, not assumptions
 - Cite specific line numbers and files
 - Explain why something is problematic
 - Offer concrete alternatives
 
 ### Even When It Contradicts Expectations:
+
 - Politely correct misconceptions
 - Explain actual behavior vs expected
 - Provide evidence for claims
@@ -210,6 +239,7 @@ Verification: [how to confirm it's fixed]
 ## Performance Considerations
 
 ### Always Consider:
+
 - Algorithm complexity (O(n) vs O(n²))
 - Memory usage patterns
 - Database query efficiency
@@ -217,6 +247,7 @@ Verification: [how to confirm it's fixed]
 - Caching opportunities
 
 ### Red Flags to Address:
+
 - Nested loops over large datasets
 - Unbounded recursive calls
 - Memory leaks from unclosed resources
@@ -226,12 +257,14 @@ Verification: [how to confirm it's fixed]
 ## Version Control Awareness
 
 ### Commit Practices:
+
 - Make atomic, focused changes
 - Write clear commit messages
 - Don't mix refactoring with features
 - Test before committing
 
 ### Commit Message Format:
+
 ```
 type: brief description
 
@@ -245,6 +278,7 @@ type: brief description
 ## Quick Reference Checklist
 
 Before starting any task:
+
 - [ ] Stated today's date
 - [ ] Understood the requirement
 - [ ] Investigated existing code
@@ -252,6 +286,7 @@ Before starting any task:
 - [ ] Created implementation plan
 
 Before submitting changes:
+
 - [ ] Tested all modifications
 - [ ] Checked for regressions
 - [ ] Updated relevant comments

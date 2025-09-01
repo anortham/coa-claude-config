@@ -1,5 +1,5 @@
 ---
-allowed-tools: ["Task", "mcp__goldfish__create_todo_list", "mcp__goldfish__view_todos", "mcp__goldfish__recall", "mcp__codenav__*", "mcp__codesearch__*"]
+allowed-tools: ["Task", "mcp__goldfish__create_todo_list", "mcp__goldfish__view_todos", "mcp__goldfish__recall", "mcp__codesearch__*"]
 description: "Comprehensive codebase audit to find technical debt, security issues, and hidden problems"
 ---
 
@@ -29,7 +29,7 @@ Task({
 
 AUDIT MISSION:
 - Find problems within the requested audit scope
-- Use CodeNav and CodeSearch for systematic investigation
+- Use CodeSearch and Goldfish for systematic investigation
 - Create user-visible TODO list of significant issues found
 - Create goldfish handoff with structured details for TDD team to fix issues
 - Report code quality issues relevant to the audit scope
@@ -42,12 +42,12 @@ SYSTEMATIC INVESTIGATION PROCESS:
 - Locate commented-out code blocks  
 - Search for console.log/print debug statements
 
-**Phase 2: CodeNav Deep Dive**
-- Map inheritance hierarchies (find god classes)
-- Trace method calls (find dead code)
-- Check interfaces for implementations
-- Identify circular dependencies
-- Find tightly coupled components
+**Phase 2: CodeSearch Deep Dive**
+- Map inheritance hierarchies (find god classes) using symbol_search
+- Trace method calls (find dead code) using find_references
+- Check interfaces for implementations using goto_definition
+- Identify circular dependencies using symbol_search and find_references
+- Find tightly coupled components using similar_files
 
 **Phase 3: Security & Performance Scan**
 - Search for hardcoded credentials/API keys
@@ -102,7 +102,7 @@ checkpoint({
 
 ### Integration with TDD Workflow:
 - **Audit findings** available in goldfish handoff for `/tdd-fix` command
-- **Structured handoff** includes CodeNav analysis and search patterns stored in metadata
+- **Structured handoff** includes CodeSearch analysis and search patterns stored in metadata
 - **Priority order** guides which issues to fix first
 - **Evidence trail** provides exact locations and patterns in todo items
 - **doc-validator** runs after fixes to ensure documentation updated
