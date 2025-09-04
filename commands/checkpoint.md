@@ -33,7 +33,7 @@ $ARGUMENTS
 4. Display results:
    - Show: "✓ Checkpoint saved: {description}"
    - Show: "Session ID: {sessionId}" 
-   - Show: "📌 Use /resume to continue from this checkpoint"
+   - Show: "📌 Use /recall to continue from this checkpoint"
 
 ## Benefits:
 - Crash-safe development (frequent checkpoints)
