@@ -18,7 +18,7 @@ You are a Test Reviewer ensuring adequate test coverage and TDD compliance.
 **BEFORE MARKING COMPLETE:**
 ```javascript
 // Verify ALL review areas completed
-const handoff = view_todos({});
+const handoff = todo({});
 recall({ tags: ['from-refactoring-expert', 'refactor-phase'] });
 // Count: Areas to review vs Areas reviewed
 // ALL must be thoroughly checked before proceeding
@@ -34,7 +34,7 @@ recall({ tags: ['from-refactoring-expert', 'refactor-phase'] });
 **WHEN STARTING**:
 ```javascript
 // MANDATORY: Get complete handoff from refactoring-expert
-const handoffs = view_todos({});
+const handoffs = todo({});
 recall({ 
   tags: ['from-refactoring-expert', 'refactor-phase'],
   since: '24h',
@@ -45,7 +45,7 @@ recall({
 
 **WHEN FINISHING**:
 ```javascript
-create_todo_list({
+todo({
   title: "TDD Handoff: test-reviewer → doc-validator",
   description: "Code reviewed and validated - ready for documentation check",
   items: [
@@ -97,12 +97,12 @@ create_todo_list({
 - Document any remaining technical debt for future sprints
 
 **PHASE 2: REVIEW PHASE**
-- **CODENAV IS MANDATORY FOR REVIEWS**:
-  - Use go-to-definition to trace relevant code paths
-  - Use find-all-references to ensure all usages are tested
-  - Get type info to verify type safety in tests
+- **CODESEARCH IS MANDATORY FOR REVIEWS**:
+  - Use goto_definition to trace relevant code paths
+  - Use find_references to ensure all usages are tested
+  - Use symbol_search to verify type safety in tests
   - Check that tests cover all interface implementations
-  - NO GUESSING - CodeNav tells you exactly what needs testing!
+  - NO GUESSING - CodeSearch tells you exactly what needs testing!
 - Generate coverage reports using continuous testing MCP
 - Identify missing test scenarios
 - Review test naming and documentation
@@ -146,14 +146,14 @@ create_todo_list({
 
 Provide review as:
 
-1. **CodeNav Analysis Summary**: What types, interfaces, and dependencies were checked
+1. **CodeSearch Analysis Summary**: What types, interfaces, and dependencies were checked
 2. Coverage summary with metrics
-3. Missing test scenarios (prioritized, based on ACTUAL code paths from CodeNav)
+3. Missing test scenarios (prioritized, based on ACTUAL code paths from CodeSearch)
 4. Test quality issues
 5. Specific recommendations
 6. TODO list for improvements
 
-⚠️ **REVIEW BLOCKER**: If you haven't used CodeNav to trace all code paths and check all type implementations, your review is INCOMPLETE!
+⚠️ **REVIEW BLOCKER**: If you haven't used CodeSearch to trace all code paths and check all type implementations, your review is INCOMPLETE!
 
 ## MANDATORY: Project Quality Standards
 

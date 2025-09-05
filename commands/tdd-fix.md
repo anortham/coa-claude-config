@@ -1,5 +1,5 @@
 ---
-allowed-tools: ["Task", "mcp__goldfish__create_todo_list", "mcp__goldfish__update_todo", "mcp__goldfish__view_todos", "mcp__goldfish__checkpoint", "mcp__goldfish__recall", "mcp__codenav__*", "mcp__codesearch__*"]
+allowed-tools: ["Task", "mcp__goldfish__todo", "mcp__goldfish__checkpoint", "mcp__goldfish__recall", "mcp__codesearch__*"]
 description: "TDD approach for fixing bugs and issues: write test for bug → fix → refactor → validate"
 ---
 
@@ -41,7 +41,7 @@ This command uses TDD principles to systematically fix bugs, address audit findi
 ### Step 1: Check for Context
 ```javascript
 // Check if this fix has context from codebase audit
-const handoffs = view_todos({});
+const handoffs = todo();
 recall({ 
   tags: ['handoff', 'to-tdd-fix', 'audit-phase'],
   since: '24h'
@@ -51,7 +51,7 @@ recall({
 
 ### Step 2: Initialize Fix Session  
 ```
-create_todo_list({
+todo({
   title: "TDD Bug Fix: $ARGUMENTS",
   items: [
     "🔴 Write failing test that reproduces the issue",
@@ -70,25 +70,25 @@ Task({
   prompt: `Write failing test that reproduces the issue: $ARGUMENTS
 
 CRITICAL REQUIREMENTS FOR BUG REPRODUCTION:
-- **GET COMPLETE CONTEXT**: Use view_todos() and recall() for ALL audit findings or issues
-- Use CodeNav to understand current implementation and locate issue
+- **GET COMPLETE CONTEXT**: Use todo() and recall() for ALL audit findings or issues
+- Use CodeSearch to understand current implementation and locate issue
 - Write test that FAILS in same way the bug manifests
 - Test should demonstrate expected vs actual behavior
 - Include edge cases that might be related
-- Use exact type information from CodeNav
+- Use exact type information from CodeSearch
 
 WORKFLOW:
 1. Check for auditor handoff with tags ['handoff', 'to-tdd-fix'] to get specific issue details
-2. Use CodeNav to locate relevant code and understand current behavior  
+2. Use CodeSearch to locate relevant code and understand current behavior  
 3. Research the issue - what should happen vs what actually happens
 4. Write test that expects correct behavior but fails with current code
 5. Ensure test fails for RIGHT reason (demonstrates the bug)
 6. Store handoff data with bug analysis for implementer using tags ['handoff', 'from-test-designer', 'to-test-implementer']
-7. **Mark REPRODUCE phase as completed:** update_todo() with status: "done"
+7. **Mark REPRODUCE phase as completed:** todo() to mark status: "done"
 
 EXAMPLE FOR AUDIT FINDINGS:
 If audit found "SQL injection in UserService.cs:147":
-- Use CodeNav to examine UserService.GetUsers method  
+- Use CodeSearch to examine UserService.GetUsers method  
 - Write test that injects malicious SQL and expects it to be handled safely
 - Verify test fails because current code is vulnerable
 - Document the exact vulnerability pattern found
@@ -107,7 +107,7 @@ Task({
 CRITICAL REQUIREMENTS FOR ISSUE FIXING:
 - Retrieve handoff from test-designer using tags ['handoff', 'to-test-implementer'] (includes any audit context)
 - Run failing test first to confirm it reproduces the issue
-- Use CodeNav to understand exact implementation details
+- Use CodeSearch to understand exact implementation details
 - Make SMALLEST change possible to fix the root cause
 - Focus ONLY on making the failing test pass
 - Don't fix other potential issues (separate them)
@@ -116,12 +116,12 @@ CRITICAL REQUIREMENTS FOR ISSUE FIXING:
 WORKFLOW:
 1. Get handoff context from test design phase
 2. Confirm test fails and reproduces issue exactly  
-3. Use CodeNav to trace code path causing the problem
+3. Use CodeSearch to trace code path causing the problem
 4. Identify root cause (not just symptoms)
 5. Implement minimal fix addressing root cause
 6. Run all tests to ensure no regressions
 7. Store handoff data about what was changed and why using tags ['handoff', 'from-test-implementer', 'to-refactoring-expert']
-8. **Mark FIX phase as completed:** update_todo() with status: "done"
+8. **Mark FIX phase as completed:** todo() to mark status: "done"
 
 BUG FIX PRINCIPLES:
 - Fix the cause, not symptoms
@@ -150,20 +150,20 @@ Task({
 CRITICAL REQUIREMENTS FOR FIX IMPROVEMENT:
 - Retrieve handoff from test-implementer using tags ['handoff', 'to-refactoring-expert']
 - All tests must pass before refactoring
-- Use CodeNav to understand all dependencies of the fix
+- Use CodeSearch to understand all dependencies of the fix
 - Look for similar issues that might exist elsewhere
 - Ensure fix follows established security/quality patterns
 - Make fix more maintainable and robust
 
 WORKFLOW:
 1. Get handoff context from fix implementation  
-2. Use CodeNav to analyze fixed code and dependencies
+2. Use CodeSearch to analyze fixed code and dependencies
 3. Look for similar patterns that might have same issue
 4. Refactor for clarity, security, and maintainability
 5. Check for related vulnerabilities or problems
 6. Run tests after each change
 7. Store handoff data about improvements made using tags ['handoff', 'from-refactoring-expert', 'to-test-reviewer']
-8. **Mark REFACTOR phase as completed:** update_todo() with status: "done"
+8. **Mark REFACTOR phase as completed:** todo() to mark status: "done"
 
 REFACTORING FOCUS FOR FIXES:
 - Is the fix clear and self-documenting?
@@ -198,7 +198,7 @@ CRITICAL REQUIREMENTS FOR FIX VALIDATION:
   * Remove unused imports, variables, and dead code
   * Ensure all test data and setup code works correctly
 - **PHASE 2: VALIDATION** - Comprehensive fix verification:
-  * Use CodeNav to ensure all related code paths are tested
+  * Use CodeSearch to ensure all related code paths are tested
   * Verify no regressions in existing functionality
   * Check if similar issues exist elsewhere in codebase
   * Ensure test coverage around fix area is comprehensive
@@ -207,13 +207,13 @@ CRITICAL REQUIREMENTS FOR FIX VALIDATION:
 WORKFLOW:  
 1. Get handoff context from refactoring phase
 2. **CLEANUP FIRST**: Fix infrastructure, build warnings, linting issues
-3. Use CodeNav to map all code paths related to fix
+3. Use CodeSearch to map all code paths related to fix
 4. Run full test suite to check for regressions
 5. Search for similar code patterns that might have same issue
 6. Verify edge cases around the fix are covered
 7. Create additional tests if gaps found
 8. Generate fix validation report
-9. **Mark VALIDATE phase as completed:** update_todo() with status: "done"
+9. **Mark VALIDATE phase as completed:** todo() to mark status: "done"
 
 VALIDATION CHECKLIST:
 - [ ] Original issue test passes
@@ -236,14 +236,14 @@ Task({
 
 CRITICAL REQUIREMENTS:
 - **Get handoff context** from previous TDD phases using goldfish recall
-- Use CodeNav to verify documented behavior matches fixed implementation
+- Use CodeSearch to verify documented behavior matches fixed implementation
 - Update any documentation affected by the bug fix
 - Document the fix if it changes public behavior or APIs
 - **Mark all handoffs complete** when done - you are the final step
 
 WORKFLOW:
 1. **Get handoff context** from previous phases to understand the scope of the fix
-2. Use CodeNav to verify current behavior matches docs
+2. Use CodeSearch to verify current behavior matches docs
 3. Update documentation that was affected by the bug
 4. Add security notes if fix addressed vulnerability
 5. **Mark handoffs complete** - workflow closed

@@ -53,8 +53,8 @@ const refactorPhase = /* Code cleaned up without breaking tests */;
 ### Goldfish MCP - Your TDD CYCLE TRACKING
 **PROACTIVELY use to track TDD phases:**
 - Checkpoint each TDD phase: `mcp__goldfish__checkpoint`
-- Create TDD cycle todo list: `mcp__goldfish__create_todo_list`
-- Update phase progress: `mcp__goldfish__update_todo`
+- Manage TDD cycle todos: `mcp__goldfish__todo`
+- Update phase progress: `mcp__goldfish__todo`
 
 ### Essential TDD Workflow:
 1. **SEARCH** for existing patterns using text_search and similar_files
@@ -258,11 +258,11 @@ test('should create user with valid email format', () => {
 ### HANDOFF PROTOCOL:
 ```javascript
 // When receiving handoff from other agents
-const handoffs = mcp__goldfish__view_todos({ tags: ['to-tdd-expert'] });
+const handoffs = mcp__goldfish__todo({ action: 'view', tags: ['to-tdd-expert'] });
 const context = mcp__goldfish__recall({ tags: ['handoff'], since: '24h' });
 
 // When completing work
-mcp__goldfish__create_todo_list({
+mcp__goldfish__todo({
   title: "TDD Expert Complete: [Feature Name]",
   description: "Full RED-GREEN-REFACTOR cycle completed with audit-resistant code",
   items: [

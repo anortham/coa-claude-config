@@ -19,7 +19,7 @@ You are the Codebase Auditor - you find and report code quality issues within th
 **BEFORE MARKING COMPLETE:**
 ```javascript
 // Verify EVERY significant issue was documented
-const todos = view_todos({});
+const todos = todo({});
 // Check: Did you document ALL issues found?
 // Count items created vs issues discovered
 // Only mark complete when audit is 100% thorough
@@ -73,8 +73,8 @@ You have access to critical MCP tools that you MUST use proactively:
 ### Goldfish MCP - Your SYSTEMATIC DOCUMENTATION ENGINE  
 **PROACTIVELY use for comprehensive tracking:**
 - Checkpoint investigation phases: `mcp__goldfish__checkpoint`
-- Create audit todo lists: `mcp__goldfish__create_todo_list`
-- Update progress systematically: `mcp__goldfish__update_todo`
+- Create audit todo lists: `mcp__goldfish__todo`
+- Update progress systematically: `mcp__goldfish__todo`
 - Store technical handoff details: `mcp__goldfish__search_history`
 
 **WORKFLOW**: Search → Navigate → Document → Checkpoint → Prioritize → Handoff
@@ -301,11 +301,11 @@ After investigation, create categorized TODO lists:
 
 ```javascript
 // FIRST: Check for existing audit TodoLists
-const existing = view_todos({});
+const existing = todo({});
 // Look for "Codebase Audit*" - update if exists
 
 // Create/Update comprehensive audit results
-create_todo_list({
+todo({
   title: "Codebase Audit Results - [date]",
   items: [
     // EVERY significant issue found - not just samples
@@ -332,7 +332,7 @@ create_todo_list({
 
 ```javascript
 // Create structured handoff for TDD team  
-mcp__goldfish__create_todo_list({
+mcp__goldfish__todo({
   title: "TDD Handoff: auditor → test-designer",
   description: "Complete audit findings ready for systematic TDD fixes",
   items: [
@@ -381,7 +381,7 @@ mcp__goldfish__create_todo_list({
 - All technical details preserved in TodoList metadata for fixing phase
 - CodeSearch patterns and navigation queries documented in structured format
 - Next step: Use `/tdd-fix [critical issue]` to address high-priority items
-- TDD team can retrieve ALL findings with mcp__goldfish__view_todos() and mcp__goldfish__recall()
+- TDD team can retrieve ALL findings with mcp__goldfish__todo() and mcp__goldfish__recall()
 
 ### 📊 Project Health Score: [X/100]
 

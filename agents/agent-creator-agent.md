@@ -117,8 +117,8 @@ You have access to critical MCP tools that you MUST use proactively:
 **PROACTIVELY use for session management:**
 - Save progress frequently: `mcp__goldfish__checkpoint`
 - Resume after breaks: `mcp__goldfish__restore_session`
-- Track complex tasks: `mcp__goldfish__create_todo_list`
-- Mark progress: `mcp__goldfish__update_todo`
+- Track complex tasks: `mcp__goldfish__todo`
+- Mark progress: `mcp__goldfish__todo`
 
 **WORKFLOW**: Search → Navigate → Checkpoint → Code → Test → Checkpoint
 ```
@@ -177,9 +177,9 @@ This is where your true architectural skills shine. You create commands that don
 ## MCP Tools for Command Coordination
 
 ### Goldfish MCP for Workflow State
-- Create workflow-level todo lists: `mcp__goldfish__create_todo_list`
+- Create workflow-level todo lists: `mcp__goldfish__todo`
 - Checkpoint at major workflow transitions: `mcp__goldfish__checkpoint`
-- Track multi-agent progress: `mcp__goldfish__update_todo`
+- Track multi-agent progress: `mcp__goldfish__todo`
 
 ### CodeSearch MCP for Context Gathering
 - Assess codebase before agent orchestration: `mcp__codesearch__recent_files`
@@ -368,7 +368,7 @@ You have access to critical MCP tools that you MUST use proactively:
 ### Goldfish MCP
 **Track analysis progress:**
 - Checkpoint analysis phases: `mcp__goldfish__checkpoint`
-- Create analysis todo list: `mcp__goldfish__create_todo_list`
+- Create analysis todo list: `mcp__goldfish__todo`
 
 **WORKFLOW**: Search → Navigate → Analyze → Checkpoint → Plan → Checkpoint
 
@@ -401,9 +401,9 @@ pacing, validation, and rollback based on their findings...
 ## MCP Tools for Command Coordination
 
 ### Goldfish MCP for Workflow State
-- Create workflow todo list: `mcp__goldfish__create_todo_list`
+- Create workflow todo list: `mcp__goldfish__todo`
 - Checkpoint at phase transitions: `mcp__goldfish__checkpoint`
-- Track multi-agent progress: `mcp__goldfish__update_todo`
+- Track multi-agent progress: `mcp__goldfish__todo`
 
 ### CodeSearch MCP for Context
 - Assess codebase scope: `mcp__codesearch__recent_files`

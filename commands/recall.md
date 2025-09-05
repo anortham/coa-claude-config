@@ -1,5 +1,5 @@
 ---
-allowed-tools: ["mcp__goldfish__restore_session", "mcp__goldfish__view_todos", "mcp__goldfish__timeline", "mcp__goldfish__recall"]
+allowed-tools: ["mcp__goldfish__checkpoint", "mcp__goldfish__todo", "mcp__goldfish__recall"]
 hide-output: true
 description: "Resume work from the most recent checkpoint with enhanced display"
 ---
@@ -12,8 +12,8 @@ $ARGUMENTS
 
 ### 1. Gather Session Data
 ```
-restore_session({ depth: "highlights" })
-view_todos()
+checkpoint({ action: "restore", depth: "highlights" })
+todo({ action: "view" })
 ```
 
 ### 2. Format and Display Results Manually
@@ -56,7 +56,7 @@ Display format:
 ### 3. Implementation Notes
 
 **Key Pattern**: 
-- Call tools to get data (restore_session, view_todos)
+- Call tools to get data (checkpoint, todo)
 - Parse the JSON responses to extract values
 - Display formatted information in YOUR message
 - This prevents CLI collapse since it's your direct output
@@ -95,7 +95,7 @@ If no checkpoint found:
 ```
 ⚠️ No recent checkpoint found. Showing recent activity:
 
-[Use recall() and format the results manually]
+[Use recall({ since: "7d" }) and format the results manually]
 
 💡 **Tip:** Create your first checkpoint with `/checkpoint`
 ```

@@ -1,5 +1,5 @@
 ---
-allowed-tools: ["Task", "mcp__goldfish__create_todo_list", "mcp__goldfish__update_todo", "mcp__goldfish__view_todos", "mcp__goldfish__checkpoint", "mcp__goldfish__recall", "mcp__codenav__*", "mcp__codesearch__*"]
+allowed-tools: ["Task", "mcp__goldfish__todo", "mcp__goldfish__checkpoint", "mcp__goldfish__recall", "mcp__codesearch__*"]
 description: "Complete TDD cycle for new features: design tests → implement → refactor → review"
 ---
 
@@ -34,7 +34,7 @@ This command orchestrates your TDD team through the complete Red-Green-Refactor 
 
 ### Step 1: Initialize TDD Session
 ```
-create_todo_list({
+todo({
   title: "TDD New Feature: $ARGUMENTS",
   items: [
     "🔴 Design comprehensive test suite (RED phase)",
@@ -53,22 +53,22 @@ Task({
   prompt: `Design test suite for ALL requested items: $ARGUMENTS
 
 CRITICAL REQUIREMENTS:
-- **CHECK EXISTING FIRST**: Use view_todos() to check for existing handoffs
+- **CHECK EXISTING FIRST**: Use todo() to check for existing handoffs
 - **COMPLETE ALL ITEMS**: If audit found 10 issues, write tests for ALL 10
-- Use CodeNav MCP to understand existing types and interfaces
+- Use CodeSearch MCP to understand existing types and interfaces
 - Find similar implementations in codebase for patterns  
 - Write tests that fail for the RIGHT reasons (not compilation errors)
 - Cover scenarios for ALL REQUESTED ITEMS: happy paths, edge cases, error conditions
-- Use exact type signatures from CodeNav - no guessing!
+- Use exact type signatures from CodeSearch - no guessing!
 - **NO PARTIAL COMPLETION**: 8/10 tests written = FAILURE
 
 WORKFLOW:
-1. Use CodeNav to explore related code and understand domain
+1. Use CodeSearch to explore related code and understand domain
 2. Design test strategy covering all scenarios  
 3. Write comprehensive failing tests with proper type safety
 4. Verify tests fail with meaningful error messages
 5. Store handoff data for implementation phase
-6. **Mark RED phase as completed:** update_todo() with status: "done"
+6. **Mark RED phase as completed:** todo() to mark status: "done"
 
 Remember: Your tests ARE the specification!`
 })
@@ -82,9 +82,9 @@ Task({
   prompt: `Make failing tests pass with MINIMAL implementation: $ARGUMENTS
 
 CRITICAL REQUIREMENTS:
-- **GET COMPLETE HANDOFF**: Use view_todos() and recall() to get ALL test requirements
+- **GET COMPLETE HANDOFF**: Use todo() and recall() to get ALL test requirements
 - **MAKE ALL TESTS PASS**: If 10 tests failing, make ALL 10 pass - no exceptions
-- Use CodeNav aggressively for exact type information  
+- Use CodeSearch aggressively for exact type information  
 - Write SIMPLEST code that makes tests green
 - Work through EVERY failing test systematically
 - Apply YAGNI principle - You Aren't Gonna Need It
@@ -93,10 +93,10 @@ CRITICAL REQUIREMENTS:
 WORKFLOW:
 1. **Get handoff from test-designer** using goldfish recall
 2. Run tests to confirm current failures
-3. Use CodeNav for precise type requirements
+3. Use CodeSearch for precise type requirements
 4. Implement one test at a time with minimal code
 5. **Create handoff for refactoring-expert** with implementation context
-6. **Mark GREEN phase as completed:** update_todo() with status: "done"
+6. **Mark GREEN phase as completed:** todo() to mark status: "done"
 
 Remember: Perfect code comes later. Focus on GREEN tests!`
 })
@@ -110,21 +110,21 @@ Task({
   prompt: `Improve code quality while maintaining all passing tests: $ARGUMENTS
 
 CRITICAL REQUIREMENTS:
-- **GET COMPLETE HANDOFF**: Use view_todos() and recall() for ALL improvement areas
+- **GET COMPLETE HANDOFF**: Use todo() and recall() for ALL improvement areas
 - **REFACTOR ALL ISSUES**: If 8 code smells identified, fix ALL 8
 - ALL tests must pass before starting refactoring
-- Use CodeNav's refactoring tools when available
+- Use CodeSearch analysis for refactoring planning
 - Make incremental changes, testing after each one
 - Apply SOLID principles ONLY when they solve the specific problem
 - Never break existing tests
 
 WORKFLOW:  
 1. **Get handoff from test-implementer** using goldfish recall
-2. Use CodeNav to analyze dependencies and references
+2. Use CodeSearch to analyze dependencies and references
 3. Apply automated refactorings where possible
 4. Make small improvements, testing continuously
 5. **Create handoff for test-reviewer** with refactoring context
-6. **Mark REFACTOR phase as completed:** update_todo() with status: "done"
+6. **Mark REFACTOR phase as completed:** todo() to mark status: "done"
 
 Remember: Internal quality without changing external behavior!`
 })
@@ -138,7 +138,7 @@ Task({
   prompt: `Comprehensive review for new feature: $ARGUMENTS
 
 CRITICAL REQUIREMENTS:
-- **GET COMPLETE HANDOFF**: Use view_todos() and recall() for ALL review areas
+- **GET COMPLETE HANDOFF**: Use todo() and recall() for ALL review areas
 - **REVIEW ALL AREAS**: If 12 components changed, review ALL 12 thoroughly
 - **PHASE 1: CLEANUP** - Only for current changes:
   * Fix any test infrastructure issues (missing matchers, broken imports)
@@ -147,7 +147,7 @@ CRITICAL REQUIREMENTS:
   * Remove unused imports, variables, and dead code
   * Ensure all test data and setup code works correctly
 - **PHASE 2: REVIEW** - Comprehensive quality assessment:
-  * Use CodeNav to trace EVERY code path
+  * Use CodeSearch to trace EVERY code path
   * Generate coverage reports and identify gaps
   * Check test quality and maintainability
   * Create specific TODO items for any improvements needed
@@ -156,11 +156,11 @@ CRITICAL REQUIREMENTS:
 WORKFLOW:
 1. **Get handoff from refactoring-expert** using goldfish recall
 2. **CLEANUP FIRST**: Fix infrastructure, build warnings, linting issues
-3. Use CodeNav to map all code paths and interfaces
+3. Use CodeSearch to map all code paths and interfaces
 4. Analyze test coverage comprehensively
 5. Review test quality and identify improvements
 6. Generate actionable improvement plan
-7. **Mark REVIEW phase as completed:** update_todo() with status: "done"
+7. **Mark REVIEW phase as completed:** todo() to mark status: "done"
 
 Remember: Good tests enable confident future changes!`
 })
@@ -174,9 +174,9 @@ Task({
   prompt: `FINAL STEP: Validate documentation for: $ARGUMENTS
 
 CRITICAL REQUIREMENTS:
-- **GET COMPLETE HANDOFF**: Use view_todos() and recall() for ALL documentation areas
+- **GET COMPLETE HANDOFF**: Use todo() and recall() for ALL documentation areas
 - **VALIDATE ALL DOCS**: If 15 areas affected, validate ALL 15 thoroughly
-- Use CodeNav as source of truth for all validations
+- Use CodeSearch as source of truth for all validations
 - Check documentation for ALL changes made in TDD cycle
 - Test ALL relevant code examples to ensure they work
 - Update ALL outdated documentation related to the changes
@@ -184,7 +184,7 @@ CRITICAL REQUIREMENTS:
 
 WORKFLOW:
 1. **Get handoff from test-reviewer** using goldfish recall to understand scope of changes
-2. Use CodeNav to verify documentation matches implementation
+2. Use CodeSearch to verify documentation matches implementation
 3. Test code examples related to the changes
 4. Fix any discrepancies (update docs, not code)
 5. **Mark all handoffs complete** - workflow closed

@@ -1,30 +1,45 @@
 ---
-allowed-tools: ["mcp__goldfish__create_todo_list", "mcp__goldfish__update_todo", "mcp__goldfish__view_todos"]
+allowed-tools: ["mcp__goldfish__todo"]
 description: "Quick todo management - add, complete, or view tasks"
 ---
 
-Manage todo items quickly.
+Manage todo items quickly using the unified todo tool.
 
 $ARGUMENTS
 
 ## Todo Management
 
-Parse the arguments to determine the action:
+Parse the arguments to determine the action and use the unified todo tool:
 
 ### For "add [task description]" or just a task description:
-Create a new todo item in the current list (or create a new list if needed).
+Use the quick action feature:
+```
+todo({ action: "quick", quick: "add [task description]" })
+```
 
 ### For "done [id]" or "complete [id]" or "finish [id]":
-Mark the specified todo item as completed.
+Use the quick action to mark items complete:
+```
+todo({ action: "quick", quick: "done [id]" })
+```
 
 ### For "list" or no arguments:
-Show the current todo list with IDs.
+Show the current todo list with IDs:
+```
+todo({ action: "view" })
+```
 
 ### For "active [id]":
-Mark the specified item as currently being worked on.
+Mark the specified item as currently being worked on:
+```
+todo({ action: "update", listId: "latest", itemId: "[id]", status: "active" })
+```
 
 ### For "delete [id]" or "remove [id]":
-Delete the specified todo item.
+Delete the specified todo item:
+```
+todo({ action: "update", listId: "latest", itemId: "[id]", delete: true })
+```
 
 ## Examples:
 

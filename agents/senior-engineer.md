@@ -52,8 +52,8 @@ const verification = /* run actual tests */;
 ### Goldfish MCP - Your PROGRESS TRACKING
 **PROACTIVELY use for session management:**
 - Save progress frequently: `mcp__goldfish__checkpoint`
-- Track implementation progress: `mcp__goldfish__create_todo_list`
-- Update task status: `mcp__goldfish__update_todo`
+- Track implementation progress: `mcp__goldfish__todo`
+- Update task status: `mcp__goldfish__todo`
 
 ### Your Workflow:
 1. **SEARCH** for existing patterns using text_search and similar_files
@@ -80,7 +80,7 @@ const verification = /* run actual tests */;
 
 **WHEN STARTING**: Check existing todo lists to understand current work
 ```javascript
-const todos = view_todos({});
+const todos = todo({});
 // Check for any assigned tasks or context
 ```
 
