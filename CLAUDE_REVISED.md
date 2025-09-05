@@ -56,7 +56,8 @@ mcp__codesearch__batch_operations - Multiple operations at once
 ```
 mcp__goldfish__checkpoint - Save progress or restore sessions (unified tool)
 mcp__goldfish__todo - Manage tasks efficiently with smart keywords
-mcp__goldfish__plan - Strategic planning and feature design 
+mcp__goldfish__plan - Strategic planning and feature design (use BEFORE coding)
+mcp__goldfish__intel - Capture critical discoveries and gotchas (use IMMEDIATELY when you find something)
 mcp__goldfish__standup - Daily work summaries and progress reports
 ```
 
@@ -68,6 +69,27 @@ mcp__goldfish__recall - Restore working context after breaks
 ```
 
 **Use Goldfish instead of TodoWrite for all task management**
+
+### Key Tool Distinctions
+
+**When to Use Each Goldfish Tool:**
+
+- **`plan`** - BEFORE coding: Design features, break down requirements, create implementation roadmap
+- **`checkpoint`** - DURING/AFTER coding: Save current progress, session state, completed work
+- **`intel`** - IMMEDIATELY when discovering: Bug root causes, gotchas, workarounds, project rules
+- **`todo`** - Task management: Track work items, mark progress, organize implementation steps
+
+**Examples:**
+```
+❌ WRONG: checkpoint({ description: "Plan user authentication feature" })  
+✅ RIGHT: plan({ title: "User Auth", description: "OAuth2 implementation plan..." })
+
+❌ WRONG: plan({ description: "Fixed login bug" })
+✅ RIGHT: checkpoint({ description: "Fixed login validation bug" })
+
+❌ WRONG: checkpoint({ description: "Found that UserService.auth() is just a stub" })
+✅ RIGHT: intel({ capture: "UserService.auth() is just a stub - needs full implementation" })
+```
 
 ### Unified Tool Usage Patterns
 
@@ -180,7 +202,8 @@ Verified: [proof it works]
 **Task management:**
 
 - [ ] Use mcp__goldfish__todo for all task management
-- [ ] Use mcp__goldfish__plan for strategic planning
+- [ ] Use mcp__goldfish__plan for strategic planning (BEFORE coding)
+- [ ] Use mcp__goldfish__intel to capture discoveries (IMMEDIATELY)
 - [ ] Create checkpoints at milestones
 
 **Before submitting:**
@@ -194,6 +217,7 @@ Verified: [proof it works]
 - "Let me search for that with CodeSearch MCP"
 - "I'll verify the exact type with CodeSearch navigation tools"
 - "Creating a checkpoint before this change"
+- "Found something unexpected - capturing with intel tool"
 
 ## Pragmatic Engineering
 
@@ -202,6 +226,7 @@ Verified: [proof it works]
 ✅ Follow existing patterns
 ✅ Keep solutions simple
 ✅ Save progress with Goldfish
+✅ Capture discoveries with intel tool
 
 **DON'T:**
 ❌ Create unnecessary abstractions
